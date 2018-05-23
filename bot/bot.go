@@ -50,9 +50,6 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 		return
 	}
 
-	// HEY STRANGER, STUFF IS STILL PRETTY EXPERIMENTAL HERE
-	// SO SORRY ABOUT THE MESSY CODE, MAYBE IT WILL IMPROVE ¯\_(ツ)_/¯
-
 	// Collects every member's info
 	if strings.Contains(m.Content, config.BotPrefix+"cm") {
 		guild, _ := s.State.Guild(channel.GuildID)
@@ -72,5 +69,12 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 		guild, _ := s.State.Guild(channel.GuildID)
 
 		collect.GetChannelsData(guild.Channels)
+	}
+
+	// Collects all roles in a guild
+	if strings.Contains(m.Content, config.BotPrefix+"cr") {
+		guild, _ := s.State.Guild(channel.GuildID)
+
+		collect.GetRolesData(guild.Roles)
 	}
 }
