@@ -66,4 +66,11 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 		collect.GetUsersData(guild.Members)
 	}
+
+	// Collects all channels in a guild
+	if strings.Contains(m.Content, config.BotPrefix+"cc") {
+		guild, _ := s.State.Guild(channel.GuildID)
+
+		collect.GetChannelsData(guild.Channels)
+	}
 }
