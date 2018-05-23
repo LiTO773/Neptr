@@ -53,10 +53,17 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 	// HEY STRANGER, STUFF IS STILL PRETTY EXPERIMENTAL HERE
 	// SO SORRY ABOUT THE MESSY CODE, MAYBE IT WILL IMPROVE ¯\_(ツ)_/¯
 
-	// Collects every user info
+	// Collects every member's info
 	if strings.Contains(m.Content, config.BotPrefix+"cm") {
 		guild, _ := s.State.Guild(channel.GuildID)
 
 		collect.GetMembersData(guild.Members)
+	}
+
+	// Collects every member's info
+	if strings.Contains(m.Content, config.BotPrefix+"cu") {
+		guild, _ := s.State.Guild(channel.GuildID)
+
+		collect.GetUsersData(guild.Members)
 	}
 }

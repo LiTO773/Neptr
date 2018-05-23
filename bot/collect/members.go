@@ -19,7 +19,6 @@ func initMembersTable(db *sql.DB) {
 		messages integer,
 		mentions integer
 	)`)
-
 	stmt.Exec()
 }
 
