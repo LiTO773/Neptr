@@ -77,4 +77,11 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 		collect.GetRolesData(guild.Roles)
 	}
+
+	// Collects all emojis in a guild
+	if strings.Contains(m.Content, config.BotPrefix+"ce") {
+		guild, _ := s.State.Guild(channel.GuildID)
+
+		collect.GetEmojisData(guild.Emojis)
+	}
 }
