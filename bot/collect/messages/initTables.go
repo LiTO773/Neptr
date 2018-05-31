@@ -6,6 +6,7 @@ import (
 	"./embeds"
 )
 
+// InitTables Creates all tables necessary to process messages
 func InitTables(db *sql.DB) {
 	InitMessagesTable(db)
 	InitAttachmentsTable(db)

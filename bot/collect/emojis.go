@@ -9,6 +9,7 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
+// initEmojisTable Creates the emojis table
 func initEmojisTable(db *sql.DB) {
 	stmt, _ := db.Prepare(`CREATE TABLE IF NOT EXISTS emojis (
 		id text,
@@ -22,6 +23,7 @@ func initEmojisTable(db *sql.DB) {
 	stmt.Exec()
 }
 
+// GetChannelsData Inserts a new entry in the emojis table
 func GetEmojisData(emojis []*discordgo.Emoji) {
 	fmt.Println("GetEmojisData")
 	db, _ := sql.Open("sqlite3", config.DB)

@@ -9,6 +9,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
+// InitEmbedProvidersTable Creates the embedProviders table
 func InitEmbedProvidersTable(db *sql.DB) {
 	stmt, _ := db.Prepare(`CREATE TABLE IF NOT EXISTS embedProviders (
 		id text,
@@ -18,6 +19,7 @@ func InitEmbedProvidersTable(db *sql.DB) {
 	stmt.Exec()
 }
 
+// AddEmbedProvider Inserts a new entry in the embedProviders table
 func AddEmbedProvider(ep *discordgo.MessageEmbedProvider, db *sql.DB) string {
 	id := strconv.Itoa(rand.Int())
 	tx, _ := db.Begin()

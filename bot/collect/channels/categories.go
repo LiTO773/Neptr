@@ -7,6 +7,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
+// InitCategoriesTable Creates the channelsCategories table
 func InitCategoriesTable(db *sql.DB) {
 	stmt, _ := db.Prepare(`CREATE TABLE IF NOT EXISTS channelsCategories (
 		id text,
@@ -17,6 +18,7 @@ func InitCategoriesTable(db *sql.DB) {
 	stmt.Exec()
 }
 
+// AddCategory Inserts a new entry in the channelsCategories table
 func AddCategory(channel *discordgo.Channel, db *sql.DB) {
 	tx, _ := db.Begin()
 

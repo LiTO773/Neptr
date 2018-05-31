@@ -7,6 +7,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
+// SQLMessage Database friendly message struct
 type SQLMessage struct {
 	ID              string
 	Type            int
@@ -24,6 +25,7 @@ type SQLMessage struct {
 	Reactions       string
 }
 
+// InitMessagesTable Creates the messages table
 func InitMessagesTable(db *sql.DB) {
 	stmt, _ := db.Prepare(`CREATE TABLE IF NOT EXISTS messages (
 		id text,
@@ -44,6 +46,7 @@ func InitMessagesTable(db *sql.DB) {
 	stmt.Exec()
 }
 
+// prepareMessage Transforms a discordgo.Message into a DB friendly message
 func prepareMessage(message *discordgo.Message) SQLMessage {
 	var convertedMsg SQLMessage
 	convertedMsg.ID = message.ID
@@ -64,6 +67,7 @@ func prepareMessage(message *discordgo.Message) SQLMessage {
 	return convertedMsg
 }
 
+// AddMessage Inserts a new entry in the messages table
 func AddMessage(message *discordgo.Message, db *sql.DB) {
 	tx, _ := db.Begin()
 
@@ -87,5 +91,8 @@ func AddMessage(message *discordgo.Message, db *sql.DB) {
 		msg.Embeds,
 		msg.Mentions,
 		msg.Reactions)
+
+	stmt2, _ := tx.Prepare(`UPDATE members SET messages = messages + 1 WHERE id = ?`)
+	stmt2.Exec(msg.Author)
 	tx.Commit()
 }

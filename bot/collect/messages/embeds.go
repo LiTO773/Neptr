@@ -13,6 +13,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
+// treatedEmbed Database friendly embed struct
 type treatedEmbed struct {
 	ID          string
 	URL         string
@@ -30,7 +31,7 @@ type treatedEmbed struct {
 	Fields      string
 }
 
-// Iniciar externamente
+// InitEmbedsTable Creates the embeds table
 func InitEmbedsTable(db *sql.DB) {
 	stmt, _ := db.Prepare(`CREATE TABLE IF NOT EXISTS embeds (
 		id text,
@@ -51,6 +52,7 @@ func InitEmbedsTable(db *sql.DB) {
 	stmt.Exec()
 }
 
+// treatEmbed Transforms a discordgo.MessageEmbed into a DB friendly embed
 func treatEmbed(embed *discordgo.MessageEmbed, db *sql.DB) treatedEmbed {
 	var newEmbed treatedEmbed
 	newEmbed.ID = strconv.Itoa(rand.Int())
@@ -85,6 +87,7 @@ func treatEmbed(embed *discordgo.MessageEmbed, db *sql.DB) treatedEmbed {
 	return newEmbed
 }
 
+// AddEmbeds Inserts a new entry in the embeds table
 func AddEmbeds(embeds []*discordgo.MessageEmbed) string {
 	db, _ := sql.Open("sqlite3", config.DB)
 	var embedSlice []string

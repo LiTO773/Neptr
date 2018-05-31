@@ -9,6 +9,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
+// InitEmbedThumbnailsTable Creates the embedThumbnails table
 func InitEmbedThumbnailsTable(db *sql.DB) {
 	stmt, _ := db.Prepare(`CREATE TABLE IF NOT EXISTS embedThumbnails (
 		id text,
@@ -20,6 +21,7 @@ func InitEmbedThumbnailsTable(db *sql.DB) {
 	stmt.Exec()
 }
 
+// AddEmbedThumbnail Inserts a new entry in the embedThumbnails table
 func AddEmbedThumbnail(et *discordgo.MessageEmbedThumbnail, db *sql.DB) string {
 	id := strconv.Itoa(rand.Int())
 	tx, _ := db.Begin()

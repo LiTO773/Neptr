@@ -9,6 +9,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
+// InitEmbedVideosTable Creates the embedVideos table
 func InitEmbedVideosTable(db *sql.DB) {
 	stmt, _ := db.Prepare(`CREATE TABLE IF NOT EXISTS embedVideos (
 		id text,
@@ -20,6 +21,7 @@ func InitEmbedVideosTable(db *sql.DB) {
 	stmt.Exec()
 }
 
+// AddEmbedVideo Inserts a new entry in the embedVideos table
 func AddEmbedVideo(ev *discordgo.MessageEmbedVideo, db *sql.DB) string {
 	id := strconv.Itoa(rand.Int())
 	tx, _ := db.Begin()

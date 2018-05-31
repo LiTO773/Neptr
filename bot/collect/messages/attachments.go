@@ -10,7 +10,7 @@ import (
 	"../../../config"
 )
 
-// Iniciar externamente
+// InitAttachmentsTable Creates the attachments table
 func InitAttachmentsTable(db *sql.DB) {
 	stmt, _ := db.Prepare(`CREATE TABLE IF NOT EXISTS attachments (
 		id text,
@@ -24,6 +24,7 @@ func InitAttachmentsTable(db *sql.DB) {
 	stmt.Exec()
 }
 
+// AddAttachments Inserts a new entry in the attachments table
 func AddAttachments(attachments []*discordgo.MessageAttachment) string {
 	db, _ := sql.Open("sqlite3", config.DB)
 	var attachmentSlice []string

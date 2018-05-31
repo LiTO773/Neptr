@@ -9,6 +9,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
+// UpdateMemberMentions +1 to a member when mentioned
 func UpdateMemberMentions(mentions []*discordgo.User) string {
 	db, _ := sql.Open("sqlite3", config.DB)
 	var mentionSlice []string
@@ -26,6 +27,7 @@ func UpdateMemberMentions(mentions []*discordgo.User) string {
 	return strings.Join(mentionSlice, ",")
 }
 
+// UpdateRoleMentions +1 to a role when mentioned
 func UpdateRoleMentions(roles []string) string {
 	db, _ := sql.Open("sqlite3", config.DB)
 
@@ -40,6 +42,7 @@ func UpdateRoleMentions(roles []string) string {
 	return strings.Join(roles, ",")
 }
 
+// UpdateEveryoneMentions +1 to @everyone when someone with nothing better to do mentions it
 func UpdateEveryoneMentions(mention bool) bool {
 	if mention {
 		db, _ := sql.Open("sqlite3", config.DB)

@@ -9,6 +9,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
+// initUsersTable Creates the users table
 func initUsersTable(db *sql.DB) {
 	stmt, _ := db.Prepare(`CREATE TABLE IF NOT EXISTS users (
 		id text,
@@ -31,7 +32,7 @@ func addUser(user *discordgo.User, db *sql.DB) {
 		user.Username,
 		user.Discriminator,
 		user.AvatarURL(""),
-		user.Bot) // Might add the rest of the fields in the future, who knows ¯\_(ツ)_/¯
+		user.Bot)
 	tx.Commit()
 }
 
@@ -43,6 +44,7 @@ func getUsers(members []*discordgo.Member) []*discordgo.User {
 	return userSlice
 }
 
+// GetUsersData Inserts a new entry in the users table
 func GetUsersData(members []*discordgo.Member) {
 	fmt.Println("GetUsersData")
 	db, _ := sql.Open("sqlite3", config.DB)

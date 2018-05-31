@@ -7,6 +7,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
+// InitTextChannelsTable Creates the channelsText table
 func InitTextChannelsTable(db *sql.DB) {
 	stmt, _ := db.Prepare(`CREATE TABLE IF NOT EXISTS channelsText (
 		id text,
@@ -19,6 +20,7 @@ func InitTextChannelsTable(db *sql.DB) {
 	stmt.Exec()
 }
 
+// AddTextChannel Inserts a new entry in the channelsText table
 func AddTextChannel(channel *discordgo.Channel, db *sql.DB) {
 	tx, _ := db.Begin()
 

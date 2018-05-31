@@ -10,6 +10,7 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
+// initMembersTable Creates the members table
 func initMembersTable(db *sql.DB) {
 	stmt, _ := db.Prepare(`CREATE TABLE IF NOT EXISTS members (
 		id text,
@@ -32,6 +33,7 @@ func addMember(member *discordgo.Member, db *sql.DB) {
 	tx.Commit()
 }
 
+// GetMembersData Inserts a new entry in the members table
 func GetMembersData(members []*discordgo.Member) {
 	fmt.Println("GetMembersData")
 	db, _ := sql.Open("sqlite3", config.DB)

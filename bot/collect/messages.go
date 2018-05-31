@@ -8,8 +8,10 @@ import (
 
 	"../../config"
 	"github.com/bwmarrin/discordgo"
+	_ "github.com/mattn/go-sqlite3"
 )
 
+// GetMessagesData Inserts a new entry in the messages table
 func GetMessagesData(msgs []*discordgo.Message) {
 	fmt.Println("GetMessagesData")
 	db, _ := sql.Open("sqlite3", config.DB)
@@ -19,5 +21,3 @@ func GetMessagesData(msgs []*discordgo.Message) {
 		messages.AddMessage(message, db)
 	}
 }
-
-// TODO: Buscar pelos menos as últimas 100 msgs e po-las na DB

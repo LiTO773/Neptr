@@ -10,12 +10,14 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
+// initTables Creates all tables necessary to process channels
 func initTables(db *sql.DB) {
 	channels.InitVoiceChannelsTable(db)
 	channels.InitTextChannelsTable(db)
 	channels.InitCategoriesTable(db)
 }
 
+// GetChannelsData Filters the channel by it's type and then adds it to the channels table
 func GetChannelsData(channelsArr []*discordgo.Channel) {
 	fmt.Println("GetChannelsData")
 	db, _ := sql.Open("sqlite3", config.DB)

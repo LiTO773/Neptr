@@ -9,6 +9,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
+// InitEmbedImagesTable Creates the embedImages table
 func InitEmbedImagesTable(db *sql.DB) {
 	stmt, _ := db.Prepare(`CREATE TABLE IF NOT EXISTS embedImages (
 		id text,
@@ -20,6 +21,7 @@ func InitEmbedImagesTable(db *sql.DB) {
 	stmt.Exec()
 }
 
+// AddEmbedImage Inserts a new entry in the embedImages table
 func AddEmbedImage(ei *discordgo.MessageEmbedImage, db *sql.DB) string {
 	id := strconv.Itoa(rand.Int())
 	tx, _ := db.Begin()

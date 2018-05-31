@@ -11,6 +11,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
+// UpdateReactions +1 to an emoji when used as a reaction
 // Returns a string as follows: "<reaction id> <uses>"
 func UpdateReactions(reactions []*discordgo.MessageReactions) string {
 	db, _ := sql.Open("sqlite3", config.DB)
@@ -37,7 +38,7 @@ func UpdateReactions(reactions []*discordgo.MessageReactions) string {
 	return strings.Join(reactionSlice, ",")
 }
 
-// Returns the id or a generated id in case it's a normal emoji (like this 👌)
+// idGenerator Returns the id or a generated id in case it's a normal emoji (like this one 👌)
 func idGenerator(emoji *discordgo.Emoji) string {
 	id := emoji.ID
 	if emoji.Name[0] == 240 {
@@ -48,6 +49,8 @@ func idGenerator(emoji *discordgo.Emoji) string {
 	return id
 }
 
+// CheckIfEmojiExists Checks if an emoji is already in the 'emojis' table
+// Returns a matching boolean
 func CheckIfEmojiExists(emoji *discordgo.Emoji, db *sql.DB) bool {
 	id := idGenerator(emoji)
 	rows, _ := db.Query("SELECT id,name FROM emojis WHERE (id=? AND name=?)", id, emoji.Name)
@@ -62,7 +65,7 @@ func CheckIfEmojiExists(emoji *discordgo.Emoji, db *sql.DB) bool {
 	return found
 }
 
-// This might be moved to somewhere elese
+// AddEmoji Inserts a new entry in the emojis table
 func AddEmoji(emoji *discordgo.Emoji, db *sql.DB, reactions int) {
 	tx, _ := db.Begin()
 

@@ -9,6 +9,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
+// InitEmbedAuthorsTable Creates the embedAuthors table
 func InitEmbedAuthorsTable(db *sql.DB) {
 	stmt, _ := db.Prepare(`CREATE TABLE IF NOT EXISTS embedAuthors (
 		id text,
@@ -19,6 +20,7 @@ func InitEmbedAuthorsTable(db *sql.DB) {
 	stmt.Exec()
 }
 
+// AddEmbedAuthor Inserts a new entry in the embedAuthors table
 func AddEmbedAuthor(ea *discordgo.MessageEmbedAuthor, db *sql.DB) string {
 	id := strconv.Itoa(rand.Int())
 	tx, _ := db.Begin()

@@ -6,8 +6,10 @@ import (
 
 	"../../config"
 	"github.com/bwmarrin/discordgo"
+	_ "github.com/mattn/go-sqlite3"
 )
 
+// initRolesTable Creates the roles table
 func initRolesTable(db *sql.DB) {
 	stmt, _ := db.Prepare(`CREATE TABLE IF NOT EXISTS roles (
 		id text,
@@ -41,6 +43,7 @@ func addRole(role *discordgo.Role, db *sql.DB) {
 	tx.Commit()
 }
 
+// GetRolesData Inserts a new entry in the roles table
 func GetRolesData(roles []*discordgo.Role) {
 	fmt.Println("GetRolesData")
 	db, _ := sql.Open("sqlite3", config.DB)
