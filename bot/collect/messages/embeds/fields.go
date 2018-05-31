@@ -21,10 +21,10 @@ func InitEmbedFieldsTable(db *sql.DB) {
 }
 
 func AddEmbedField(ef []*discordgo.MessageEmbedField, db *sql.DB) string {
-	var sb strings.Builder
+	var fieldsSlice []string
 	for _, field := range ef {
 		id := strconv.Itoa(rand.Int())
-		sb.WriteString(id + ",")
+		fieldsSlice = append(fieldsSlice, id)
 
 		tx, _ := db.Begin()
 		stmt, _ := tx.Prepare(`INSERT INTO embedFields
@@ -38,5 +38,5 @@ func AddEmbedField(ef []*discordgo.MessageEmbedField, db *sql.DB) string {
 		tx.Commit()
 	}
 
-	return sb.String()
+	return strings.Join(fieldsSlice, ",")
 }

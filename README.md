@@ -2,7 +2,7 @@
 
 **Neptr** is a Discord analytics bot which delivers detailed analytics about a certain guild/server of your choosing. Neptr's primary goal is to help anyone explore and study their server's data, by storing everything in an SQLite database, which can later be easily accessed and modified by many popular programming languages for any purpose.
 
-So far this is not a *self-hosted bot*, however, feel free to host it if you wish to do so 😉.
+So far this is not a *self-hosted bot*, but feel free to host it if you wish to do so 😉.
 
 ## Setting up
 

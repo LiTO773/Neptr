@@ -12,7 +12,7 @@ import (
 func InitEmbedFootersTable(db *sql.DB) {
 	stmt, _ := db.Prepare(`CREATE TABLE IF NOT EXISTS embedFooters (
 		id text,
-		text text,
+		name text,
 		iconURL text,
 		proxyIconURL text
 	)`)

@@ -3,7 +3,6 @@ package messages
 import (
 	"database/sql"
 	"encoding/hex"
-	"fmt"
 	"strconv"
 	"strings"
 
@@ -20,6 +19,8 @@ func UpdateReactions(reactions []*discordgo.MessageReactions) string {
 	for _, reaction := range reactions {
 		tx, _ := db.Begin()
 
+		id := idGenerator(reaction.Emoji)
+
 		// Check if it's not a server only emoji
 		if !CheckIfEmojiExists(reaction.Emoji, db) {
 			AddEmoji(reaction.Emoji, db, reaction.Count)
@@ -27,18 +28,29 @@ func UpdateReactions(reactions []*discordgo.MessageReactions) string {
 			stmt, _ := tx.Prepare(`UPDATE emojis SET reactions = reactions + ? WHERE id = ?`)
 			stmt.Exec(
 				reaction.Count,
-				reaction.Emoji.ID)
+				id)
 			tx.Commit()
 		}
-
-		reactionSlice = append(reactionSlice, reaction.Emoji.ID+" "+strconv.Itoa(reaction.Count))
+		reactionSlice = append(reactionSlice, id+" "+strconv.Itoa(reaction.Count))
 	}
 
 	return strings.Join(reactionSlice, ",")
 }
 
+// Returns the id or a generated id in case it's a normal emoji (like this 👌)
+func idGenerator(emoji *discordgo.Emoji) string {
+	id := emoji.ID
+	if emoji.Name[0] == 240 {
+		idSlice := []byte(emoji.Name)
+		id = hex.EncodeToString(idSlice)
+	}
+
+	return id
+}
+
 func CheckIfEmojiExists(emoji *discordgo.Emoji, db *sql.DB) bool {
-	rows, _ := db.Query("SELECT id,name FROM emojis WHERE (id=? AND name=?)", emoji.ID, emoji.Name)
+	id := idGenerator(emoji)
+	rows, _ := db.Query("SELECT id,name FROM emojis WHERE (id=? AND name=?)", id, emoji.Name)
 	defer rows.Close()
 
 	// Check if it exists or not
@@ -55,13 +67,7 @@ func AddEmoji(emoji *discordgo.Emoji, db *sql.DB, reactions int) {
 	tx, _ := db.Begin()
 
 	// Generate an ID if it isn't an Unicode emoji
-	id := emoji.ID
-	if emoji.Name[0] == 240 {
-		idSlice := []byte(emoji.Name)
-		id = hex.EncodeToString(idSlice)
-	}
-
-	fmt.Println(id)
+	id := idGenerator(emoji)
 
 	stmt, _ := tx.Prepare(`INSERT INTO emojis
 		(id, name, roles, managed, requireColons, animated, reactions)
