@@ -26,8 +26,8 @@ func addMember(member *discordgo.Member, db *sql.DB) {
 	tx, _ := db.Begin()
 
 	stmt, _ := tx.Prepare(`INSERT INTO members
-		(id, username, nickname, joinedAt) 
-	values (?, ?, ?, ?)`)
+		(id, username, nickname, joinedAt, messages, mentions) 
+	values (?, ?, ?, ?, 0, 0)`)
 	stmt.Exec(member.User.ID, member.User.Username, member.Nick, member.JoinedAt)
 	tx.Commit()
 }

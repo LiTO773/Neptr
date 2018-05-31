@@ -35,7 +35,7 @@ func addUser(user *discordgo.User, db *sql.DB) {
 	tx.Commit()
 }
 
-func getUsers(members []*discordgo.Member) (users []*discordgo.User) {
+func getUsers(members []*discordgo.Member) []*discordgo.User {
 	var userSlice []*discordgo.User
 	for _, member := range members {
 		userSlice = append(userSlice, member.User)

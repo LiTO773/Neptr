@@ -57,7 +57,7 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 		collect.GetMembersData(guild.Members)
 	}
 
-	// Collects every member's info
+	// Collects every user's info
 	if strings.Contains(m.Content, config.BotPrefix+"cu") {
 		guild, _ := s.State.Guild(channel.GuildID)
 
@@ -83,5 +83,17 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 		guild, _ := s.State.Guild(channel.GuildID)
 
 		collect.GetEmojisData(guild.Emojis)
+	}
+
+	// Collects latest 100 messages in a channel
+	if strings.Contains(m.Content, config.BotPrefix+"ct") {
+		command := strings.Split(m.Content, " ")
+		if len(command) == 2 {
+			fmt.Println("yeyah!")
+			messages, _ := s.ChannelMessages(command[1], 100, "", "", "")
+			collect.GetMessagesData(messages)
+		}
+
+		// collect.GetEmojisData(guild.Emojis)
 	}
 }

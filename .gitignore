@@ -1,5 +1,4 @@
 config.json
-db.db
+db
 gomon_spawn
 main
-db.db-journal
