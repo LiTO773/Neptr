@@ -20,7 +20,14 @@ The `config.json` will host 3 key components of the bot, the **Token**, the **Pr
 ## How does it work?
 
 The bot and commands are still a bit messy and will likely be changed in a future commit. Right now, **the** way to use the bot is by writing the following commands:
+
+```javascript
+§start // Collects everything, including the latest 100 messages from each channel
 ```
+
+or
+
+```javascript
 §cm // Collects every member
 §cu // Collects every user
 §cc // Collects all channels

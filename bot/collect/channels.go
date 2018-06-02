@@ -38,3 +38,15 @@ func GetChannelsData(channelsArr []*discordgo.Channel) {
 		}
 	}
 }
+
+// GetTextChannels Returns only text channels
+func GetTextChannels(channelsArr []*discordgo.Channel) []*discordgo.Channel {
+	var channels []*discordgo.Channel
+	for _, channel := range channelsArr {
+		if channel.Type == 0 {
+			channels = append(channels, channel)
+		}
+	}
+
+	return channels
+}
