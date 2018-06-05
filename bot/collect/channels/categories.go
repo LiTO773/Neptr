@@ -13,7 +13,7 @@ func InitCategoriesTable(db *sql.DB) {
 		id text,
 		position integer,
 		name text,
-		nsfw boolean
+		nsfw integer
 	)`)
 	stmt.Exec()
 }

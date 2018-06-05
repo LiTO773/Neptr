@@ -16,7 +16,7 @@ func initUsersTable(db *sql.DB) {
 		username text,
 		discriminator text,
 		avatar text,
-		bot boolean
+		bot integer
 	)`)
 	stmt.Exec()
 }

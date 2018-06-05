@@ -15,12 +15,12 @@ func initRolesTable(db *sql.DB) {
 		id text,
 		position integer,
 		name text,
-		managed boolean,
-		mentionable boolean,
-		hoist boolean,
+		managed integer,
+		mentionable integer,
+		hoist integer,
 		color integer,
 		permissions integer,
-		mentions integer
+		mentions integer DEFAULT 0
 	)`)
 	stmt.Exec()
 }
@@ -29,8 +29,8 @@ func addRole(role *discordgo.Role, db *sql.DB) {
 	tx, _ := db.Begin()
 
 	stmt, _ := tx.Prepare(`INSERT INTO roles
-		(id, position, name, managed, mentionable, hoist, color, permissions, mentions)
-	values (?, ?, ?, ?, ?, ?, ?, ?, 0)`)
+		(id, position, name, managed, mentionable, hoist, color, permissions)
+	values (?, ?, ?, ?, ?, ?, ?, ?)`)
 	stmt.Exec(
 		role.ID,
 		role.Position,

@@ -17,8 +17,9 @@ func initMembersTable(db *sql.DB) {
 		username text,
 		nickname text,
 		joinedAt text,
-		messages integer,
-		mentions integer
+		messages integer DEFAULT 0,
+		mentions integer DEFAULT 0,
+		kicked integer DEFAULT 0
 	)`)
 	stmt.Exec()
 }
@@ -27,8 +28,8 @@ func addMember(member *discordgo.Member, db *sql.DB) {
 	tx, _ := db.Begin()
 
 	stmt, _ := tx.Prepare(`INSERT INTO members
-		(id, username, nickname, joinedAt, messages, mentions) 
-	values (?, ?, ?, ?, 0, 0)`)
+		(id, username, nickname, joinedAt) 
+	values (?, ?, ?, ?)`)
 	stmt.Exec(member.User.ID, member.User.Username, member.Nick, member.JoinedAt)
 	tx.Commit()
 }

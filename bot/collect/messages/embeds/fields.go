@@ -16,7 +16,7 @@ func InitEmbedFieldsTable(db *sql.DB) {
 		id text,
 		name text,
 		value text,
-		inline boolean
+		inline integer
 	)`)
 	stmt.Exec()
 }

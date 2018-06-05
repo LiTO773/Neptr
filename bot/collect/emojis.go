@@ -15,9 +15,9 @@ func initEmojisTable(db *sql.DB) {
 		id text,
 		name text,
 		roles text,
-		managed boolean,
-		requireColons boolean,
-		animated boolean,
+		managed integer,
+		requireColons integer,
+		animated integer,
 		reactions integer
 	)`)
 	stmt.Exec()

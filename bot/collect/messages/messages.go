@@ -35,7 +35,7 @@ func InitMessagesTable(db *sql.DB) {
 		timestamp text,
 		editedTimestamp text,
 		mentionRoles text,
-		tts boolean,
+		tts integer,
 		mentionEveryone integer,
 		authorID text,
 		attachmentIDs text,

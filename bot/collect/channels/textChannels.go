@@ -14,7 +14,7 @@ func InitTextChannelsTable(db *sql.DB) {
 		position integer,
 		name text,
 		topic text,
-		nsfw boolean,
+		nsfw integer,
 		parentID text
 	)`)
 	stmt.Exec()
