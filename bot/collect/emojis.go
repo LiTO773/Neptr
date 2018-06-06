@@ -18,12 +18,13 @@ func initEmojisTable(db *sql.DB) {
 		managed integer,
 		requireColons integer,
 		animated integer,
-		reactions integer
+		reactions integer,
+		uses integer DEFAULT 0
 	)`)
 	stmt.Exec()
 }
 
-// GetChannelsData Inserts a new entry in the emojis table
+// GetEmojisData Inserts a new entry in the emojis table
 func GetEmojisData(emojis []*discordgo.Emoji) {
 	fmt.Println("GetEmojisData")
 	db, _ := sql.Open("sqlite3", config.DB)
