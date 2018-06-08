@@ -47,7 +47,7 @@ func InitEmbedsTable(db *sql.DB) {
 		video text,
 		provider text,
 		author text,
-		fields string
+		fields text
 	)`)
 	stmt.Exec()
 }

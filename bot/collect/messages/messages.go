@@ -3,6 +3,8 @@ package messages
 import (
 	"database/sql"
 
+	"./count"
+
 	"github.com/bwmarrin/discordgo"
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -57,7 +59,7 @@ func prepareMessage(message *discordgo.Message) SQLMessage {
 	convertedMsg.Type = int(message.Type)
 	convertedMsg.ChannelID = message.ChannelID
 	convertedMsg.Content = message.Content
-	convertedMsg.Characters = CountCharacters(message.Content, message.Mentions)
+	convertedMsg.Characters = count.CountCharacters(message.Content, message.Mentions)
 	convertedMsg.Timestamp = string(message.Timestamp)
 	convertedMsg.EditedTimestamp = string(message.EditedTimestamp)
 	convertedMsg.MentionRoles = UpdateRoleMentions(message.MentionRoles)
@@ -78,6 +80,7 @@ func AddMessage(message *discordgo.Message, db *sql.DB) {
 	tx, _ := db.Begin()
 
 	msg := prepareMessage(message)
+	count.UpdateCounters(message)
 
 	stmt, _ := tx.Prepare(`INSERT INTO messages
 		(id, type, channelID, content, characters, timestamp, editedTimestamp, mentionRoles, tts, mentionEveryone, authorID, attachmentIDs, embedsIDs, mentionsIDs, reactionsIDs, emojisIDs)

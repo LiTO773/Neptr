@@ -3,6 +3,7 @@ package messages
 import (
 	"database/sql"
 
+	"./count"
 	"./embeds"
 )
 
@@ -19,4 +20,7 @@ func InitTables(db *sql.DB) {
 	embeds.InitEmbedProvidersTable(db)
 	embeds.InitEmbedThumbnailsTable(db)
 	embeds.InitEmbedVideosTable(db)
+	count.InitCharactersTable(db)
+	count.InitCharactersByUserTable(db)
+	count.InitCharactersByChannel(db)
 }

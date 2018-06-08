@@ -9,6 +9,7 @@ import (
 	"../../../config"
 )
 
+// UpdateEmoji Updates the use of a certain emoji
 func UpdateEmojis(content string) string {
 	r := regexp.MustCompile(`<:.*?:([0-9]{18})>`)
 	match := r.FindAllStringSubmatch(content, -1)
