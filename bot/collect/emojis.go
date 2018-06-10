@@ -5,9 +5,9 @@ package collect
 import (
 	"database/sql"
 	"fmt"
+	"strings"
 
 	"../../config"
-	"./messages"
 	"github.com/bwmarrin/discordgo"
 )
 
@@ -33,6 +33,18 @@ func GetEmojisData(emojis []*discordgo.Emoji) {
 	initEmojisTable(db)
 
 	for _, emoji := range emojis {
-		messages.AddEmoji(emoji, db, 0)
+		tx, _ := db.Begin()
+
+		stmt, _ := tx.Prepare(`INSERT INTO emojis
+			(id, name, roles, managed, requireColons, animated)
+		values (?, ?, ?, ?, ?, ?)`)
+		stmt.Exec(
+			emoji.ID,
+			emoji.Name,
+			strings.Join(emoji.Roles, ","),
+			emoji.Managed,
+			emoji.RequireColons,
+			emoji.Animated)
+		tx.Commit()
 	}
 }
