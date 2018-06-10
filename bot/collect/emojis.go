@@ -1,5 +1,7 @@
 package collect
 
+// Sets up the emoji table and populates it with guild specific emojis
+// Unicode emojis are handled in the messages/emoji package
 import (
 	"database/sql"
 	"fmt"
@@ -14,11 +16,11 @@ func initEmojisTable(db *sql.DB) {
 	stmt, _ := db.Prepare(`CREATE TABLE IF NOT EXISTS emojis (
 		id text,
 		name text,
-		roles text,
-		managed integer,
-		requireColons integer,
-		animated integer,
-		reactions integer,
+		roles text DEFAULT '',
+		managed integer DEFAULT 0,
+		requireColons integer DEFAULT 0,
+		animated integer DEFAULT 0,
+		reactions integer DEFAULT 0,
 		uses integer DEFAULT 0
 	)`)
 	stmt.Exec()

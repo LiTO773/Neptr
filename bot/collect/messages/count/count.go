@@ -40,8 +40,8 @@ func filterMessage(content string, mentions []*discordgo.User) string {
 	return sb.String()
 }
 
-// proccessCharacters Gets each individual character/emoji and updates unicode emoji uses
-func proccessCharacters(message *discordgo.Message) map[string]int {
+// ProccessCharacters Gets each individual character/emoji and updates unicode emoji uses
+func ProccessCharacters(message *discordgo.Message) map[string]int {
 	content := []byte(filterMessage(message.Content, message.Mentions))
 	chars := make(map[string]int)
 	var specialCharacters []byte
@@ -60,8 +60,6 @@ func proccessCharacters(message *discordgo.Message) map[string]int {
 			}
 		}
 	}
-
-	// TODO Collect unicode emojis and update them in the db
 
 	return chars
 }

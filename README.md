@@ -38,6 +38,23 @@ or
 
 **NOTE:** The bot isn't smart enough yet now to know if the DB has been filled already or not, so everytime you run any of the commands above it will always insert the info as new entries.
 
+## Emojis
+Emojis are a bit tricky to count, since some emojis actually consist of two or
+more emojis combined.
+
+For example the 🏳️‍🌈 emoji is actually a 🏳 and a 🌈 combined together, so the bot will count it as one character.
+
+### Characters table
+So far the `characters` table counts emojis like this: 🏳️‍🌈 and 👨‍🏫 as one character.
+However this means that a string like this: 🔥🔥🔥🔥 will also be counted as one emoji
+which is not the intended outcome. I'm still trying to solve this issue by probably
+treating emojis the same way as they are treated in the `emojis` table (see below).
+
+### Emojis table
+In the `emojis` table an emoji like this: 🏳️‍🌈 is stored by each of it's parts, like so:
+🏳 🌈. This way each emoji will always be counted separately, even if it's part of
+another one. (I'll probably use the same approach in the `characters` table in the future)
+
 ## Contributing
 
 The code might be a bit messy right now and there's still a lot of things to do. Any commits would be greatly appreciated 😃.
