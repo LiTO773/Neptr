@@ -48,12 +48,12 @@ func ProccessEmojis(content string) map[string]int {
 func getUnicodeEmojis(content string) map[string]int {
 	contentSlice := []byte(content)
 	response := make(map[string]int)
-	var specialCharacters []byte
+	specialCharacters := []byte{}
 
 	for i, char := range contentSlice {
 		if char <= 127 && len(specialCharacters) != 0 {
-			specialCharacters = specialCharacters[:0]
 			response = addToMap(response, string(specialCharacters))
+			specialCharacters = specialCharacters[:0]
 		} else if char == 240 {
 			specialCharacters = append(specialCharacters, char)
 		} else if char >= 128 {
