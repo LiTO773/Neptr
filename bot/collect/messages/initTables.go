@@ -5,6 +5,7 @@ import (
 
 	"./count"
 	"./embeds"
+	"./emoji"
 )
 
 // InitTables Creates all tables necessary to process messages
@@ -22,5 +23,7 @@ func InitTables(db *sql.DB) {
 	embeds.InitEmbedVideosTable(db)
 	count.InitCharactersTable(db)
 	count.InitCharactersByUserTable(db)
-	count.InitCharactersByChannel(db)
+	count.InitCharactersByChannelTable(db)
+	emoji.InitEmojisByUserTable(db)
+	emoji.InitEmojisByChannelTable(db)
 }

@@ -10,7 +10,7 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
-var BotID string
+var botID string
 var goBot *discordgo.Session
 
 func Start() {
@@ -28,7 +28,7 @@ func Start() {
 		return
 	}
 
-	BotID = u.ID
+	botID = u.ID
 
 	goBot.AddHandler(messageHandler)
 
@@ -46,7 +46,7 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 	// Get the guild
 	channel, _ := s.State.Channel(m.ChannelID)
 
-	// !strings.HasPrefix(m.Content, config.BotPrefix) || m.Author.ID == BotID ||
+	// !strings.HasPrefix(m.Content, config.BotPrefix) || m.Author.ID == botID ||
 	if channel.GuildID == "" {
 		return
 	}

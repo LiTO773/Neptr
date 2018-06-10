@@ -4,6 +4,7 @@ import (
 	"database/sql"
 
 	"./count"
+	"./emoji"
 
 	"github.com/bwmarrin/discordgo"
 	_ "github.com/mattn/go-sqlite3"
@@ -69,8 +70,8 @@ func prepareMessage(message *discordgo.Message) SQLMessage {
 	convertedMsg.Attachments = AddAttachments(message.Attachments)
 	convertedMsg.Embeds = AddEmbeds(message.Embeds)
 	convertedMsg.Mentions = UpdateMemberMentions(message.Mentions)
-	convertedMsg.Reactions = UpdateReactions(message.Reactions)
-	convertedMsg.Emojis = UpdateEmojis(message.Content)
+	convertedMsg.Reactions = emoji.UpdateOrCreateReaction(message)
+	convertedMsg.Emojis = emoji.UpdateOrCreateEmoji(message)
 
 	return convertedMsg
 }

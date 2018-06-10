@@ -21,8 +21,8 @@ func InitCharactersByUserTable(db *sql.DB) {
 	stmt.Exec()
 }
 
-// InitCharactersByChannel Creates the charactersByChannel table
-func InitCharactersByChannel(db *sql.DB) {
+// InitCharactersByChannelTable Creates the charactersByChannel table
+func InitCharactersByChannelTable(db *sql.DB) {
 	stmt, _ := db.Prepare(`CREATE TABLE IF NOT EXISTS charactersByChannel (
 		channel text,
 		character text,

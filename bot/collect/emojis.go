@@ -1,11 +1,13 @@
 package collect
 
+// Sets up the emoji table and populates it with guild specific emojis
+// Unicode emojis are handled in the messages/emoji package
 import (
 	"database/sql"
 	"fmt"
+	"strings"
 
 	"../../config"
-	"./messages"
 	"github.com/bwmarrin/discordgo"
 )
 
@@ -14,11 +16,11 @@ func initEmojisTable(db *sql.DB) {
 	stmt, _ := db.Prepare(`CREATE TABLE IF NOT EXISTS emojis (
 		id text,
 		name text,
-		roles text,
-		managed integer,
-		requireColons integer,
-		animated integer,
-		reactions integer,
+		roles text DEFAULT '',
+		managed integer DEFAULT 0,
+		requireColons integer DEFAULT 0,
+		animated integer DEFAULT 0,
+		reactions integer DEFAULT 0,
 		uses integer DEFAULT 0
 	)`)
 	stmt.Exec()
@@ -31,6 +33,18 @@ func GetEmojisData(emojis []*discordgo.Emoji) {
 	initEmojisTable(db)
 
 	for _, emoji := range emojis {
-		messages.AddEmoji(emoji, db, 0)
+		tx, _ := db.Begin()
+
+		stmt, _ := tx.Prepare(`INSERT INTO emojis
+			(id, name, roles, managed, requireColons, animated)
+		values (?, ?, ?, ?, ?, ?)`)
+		stmt.Exec(
+			emoji.ID,
+			emoji.Name,
+			strings.Join(emoji.Roles, ","),
+			emoji.Managed,
+			emoji.RequireColons,
+			emoji.Animated)
+		tx.Commit()
 	}
 }
