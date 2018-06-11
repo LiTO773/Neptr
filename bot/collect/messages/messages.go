@@ -5,6 +5,7 @@ import (
 
 	"./count"
 	"./emoji"
+	"./timestamp"
 
 	"github.com/bwmarrin/discordgo"
 	_ "github.com/mattn/go-sqlite3"
@@ -62,6 +63,7 @@ func prepareMessage(message *discordgo.Message) SQLMessage {
 	convertedMsg.Content = message.Content
 	convertedMsg.Characters = count.CountCharacters(message.Content, message.Mentions)
 	convertedMsg.Timestamp = string(message.Timestamp)
+	timestamp.UpdateTimestamp(convertedMsg.Timestamp)
 	convertedMsg.EditedTimestamp = string(message.EditedTimestamp)
 	convertedMsg.MentionRoles = UpdateRoleMentions(message.MentionRoles)
 	convertedMsg.Tts = message.Tts
