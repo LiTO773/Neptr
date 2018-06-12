@@ -61,6 +61,7 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 		collect.GetChannelsData(guild.Channels)
 		collect.GetRolesData(guild.Roles)
 		collect.GetEmojisData(guild.Emojis)
+		collect.InitMessagesTables()
 
 		for _, channel := range collect.GetTextChannels(guild.Channels) {
 			fmt.Printf("Collecting channel %v - ", channel.ID)
