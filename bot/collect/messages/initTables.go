@@ -6,9 +6,11 @@ import (
 	"./count"
 	"./embeds"
 	"./emoji"
+	"./timestamp"
 )
 
 // InitTables Creates all tables necessary to process messages
+// TODO Move this anywhere else
 func InitTables(db *sql.DB) {
 	InitMessagesTable(db)
 	InitAttachmentsTable(db)
@@ -26,4 +28,5 @@ func InitTables(db *sql.DB) {
 	count.InitCharactersByChannelTable(db)
 	emoji.InitEmojisByUserTable(db)
 	emoji.InitEmojisByChannelTable(db)
+	timestamp.InitTimestampsTable(db)
 }

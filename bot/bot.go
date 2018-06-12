@@ -56,7 +56,6 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 	// Collects everything
 	if strings.Contains(m.Content, config.BotPrefix+"start") {
-		collect.InitTimestampsTable()
 		collect.GetMembersData(guild.Members)
 		collect.GetUsersData(guild.Members)
 		collect.GetChannelsData(guild.Channels)

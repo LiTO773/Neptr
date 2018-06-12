@@ -63,7 +63,7 @@ func prepareMessage(message *discordgo.Message) SQLMessage {
 	convertedMsg.Content = message.Content
 	convertedMsg.Characters = count.CountCharacters(message.Content, message.Mentions)
 	convertedMsg.Timestamp = string(message.Timestamp)
-	timestamp.UpdateTimestamp(convertedMsg.Timestamp)
+	timestamp.UpdateTimestamp(message)
 	convertedMsg.EditedTimestamp = string(message.EditedTimestamp)
 	convertedMsg.MentionRoles = UpdateRoleMentions(message.MentionRoles)
 	convertedMsg.Tts = message.Tts
