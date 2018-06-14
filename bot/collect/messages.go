@@ -40,7 +40,7 @@ func InitMessagesTables() {
 	tx.Commit()
 }
 
-// GetMessagesData Inserts a new entry in the messages table
+// GetMessagesData Inserts a new entries in the messages table
 func GetMessagesData(msgs []*discordgo.Message) {
 	fmt.Println("GetMessagesData")
 	db, _ := sql.Open("sqlite3", config.DB)
@@ -48,4 +48,30 @@ func GetMessagesData(msgs []*discordgo.Message) {
 	for _, message := range msgs {
 		messages.AddMessage(message, db)
 	}
+}
+
+// GetMessageData Inserts a new entries in the messages table
+func GetMessageData(msg *discordgo.MessageCreate) {
+	fmt.Println("GetMessageData")
+	db, _ := sql.Open("sqlite3", config.DB)
+
+	standardMsg := discordgo.Message{
+		msg.ID,
+		msg.ChannelID,
+		msg.Content,
+		msg.Timestamp,
+		msg.EditedTimestamp,
+		msg.MentionRoles,
+		msg.Tts,
+		msg.MentionEveryone,
+		msg.Author,
+		msg.Attachments,
+		msg.Embeds,
+		msg.Mentions,
+		msg.Reactions,
+		msg.Type}
+
+	standardMsgPointer := &standardMsg
+	fmt.Println(standardMsg)
+	messages.AddMessage(standardMsgPointer, db)
 }

@@ -117,7 +117,7 @@ func AddEmbeds(embeds []*discordgo.MessageEmbed) string {
 			newEmbed.Fields)
 		tx.Commit()
 
-		embedSlice = append(embedSlice, ",")
+		embedSlice = append(embedSlice, newEmbed.ID)
 	}
 
 	return strings.Join(embedSlice, ",")

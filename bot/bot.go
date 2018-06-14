@@ -113,9 +113,6 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 		return
 	}
 
-	// END - First time collection
-
-	// START - Event triggered collection
-	// collect.NewMessage()
-	// END - Event triggered collection
+	// Collects a new message
+	collect.GetMessageData(m)
 }
