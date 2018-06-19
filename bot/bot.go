@@ -54,6 +54,12 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 	// START - First time collection
 	guild, _ := s.State.Guild(channel.GuildID)
 
+	// Collects every member's info
+	if strings.Contains(m.Content, config.BotPrefix+"cp") {
+		collect.GetRP(guild.Presences)
+		return
+	}
+
 	// Collects everything
 	if strings.Contains(m.Content, config.BotPrefix+"start") {
 		collect.GetMembersData(guild.Members)
