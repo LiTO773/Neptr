@@ -43,3 +43,11 @@ you can use:
 The code might be a bit messy right now and there's still a lot of things to do. Any commits would be greatly appreciated 😃.
 
 **NOTE:** I might take a while to merge any commits since I'm near my finals.
+
+### Author
+
+* **Luís Pinto** - [LiTO773](https://github.com/LiTO773)
+
+## License
+
+This project is licensed under the MIT License
